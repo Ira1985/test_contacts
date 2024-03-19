@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContacts } from "./useContacts";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -25,7 +25,10 @@ const useStyle = makeStyles({
     backgroundColor: theme.palette.primary.light,
   },
   header: {
-    marginBottom: theme.spacing(5),
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: theme.spacing(2),
   },
 });
 
@@ -34,11 +37,15 @@ const DATA_VIEW_MODES = {
   GRID: "grid",
 };
 
+const getInitialViewMode = () => {
+  return localStorage.getItem("viewMode") || DATA_VIEW_MODES.TABLE;
+};
+
 export const Contacts = () => {
   const classes = useStyle();
   const { contacts, isLoading, isError } = useContacts();
 
-  const [dataViewMode, setDataViewMode] = useState(DATA_VIEW_MODES.TABLE);
+  const [dataViewMode, setDataViewMode] = useState(getInitialViewMode);
 
   const makeView = (view) => {
     if (isLoading) {
@@ -59,18 +66,18 @@ export const Contacts = () => {
   };
 
   const handleChange = (event, nextView) => {
-    if (nextView === "update") {
-      console.log("update");
-    } else {
-      setDataViewMode(nextView);
-    }
+    setDataViewMode(nextView);
   };
+
+  useEffect(() => {
+    localStorage.setItem("viewMode", dataViewMode);
+  }, [dataViewMode]);
 
   return (
     <Container className={classes.container}>
       <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <Typography variant="h5" component="h5" className={classes.header}>
+        <Grid item xs={12} className={classes.header}>
+          <Typography variant="h4" component="h4">
             Contacts!
           </Typography>
           <ToggleButtonGroup
@@ -79,13 +86,13 @@ export const Contacts = () => {
             onChange={handleChange}
             aria-label="text alignment"
           >
-            <ToggleButton value="update" aria-label="left aligned">
-              <RestartAltIcon />
-            </ToggleButton>
-            <ToggleButton value="table" aria-label="centered">
+            <ToggleButton value={DATA_VIEW_MODES.TABLE} aria-label="centered">
               <ViewListIcon />
             </ToggleButton>
-            <ToggleButton value="grid" aria-label="right aligned">
+            <ToggleButton
+              value={DATA_VIEW_MODES.GRID}
+              aria-label="right aligned"
+            >
               <ViewModuleIcon />
             </ToggleButton>
           </ToggleButtonGroup>
