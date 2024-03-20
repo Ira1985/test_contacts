@@ -35,7 +35,7 @@ export const Contacts = () => {
   const { contacts, isLoading, isError } = useContacts();
   const [dataViewMode, setDataViewMode] = useViewMode();
 
-  const makeView = () => {
+  const createView = () => {
     if (isLoading) {
       return <CircularProgress />;
     }
@@ -65,7 +65,7 @@ export const Contacts = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          {makeView()}
+          {createView()}
         </Grid>
       </Grid>
     </Container>

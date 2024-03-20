@@ -2,7 +2,7 @@ export const nationalities = {
   AU: "Australian",
   BR: "Brazilian",
   CA: "Canadian",
-  CH: "Chinese",
+  CH: "Swiss",
   DE: "German",
   DK: "Danish",
   ES: "Spenish",

@@ -15,7 +15,7 @@ const useStyle = makeStyles({
   root: {
     display: "flex",
     alignItems: "center",
-    color: theme.palette.text.secondary,
+    color: theme.palette.primary.light,
     cursor: "pointer",
   },
   icon: {
@@ -31,7 +31,7 @@ const STATUS_COPY = {
 export const CopyToClipboardText = ({ text }) => {
   const classes = useStyle();
   const [title, setTitle] = useState(STATUS_COPY.COPY);
-  const [state, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
   return (
     <ClickAwayListener onClickAway={() => setTitle(STATUS_COPY.COPY)}>
       <Tooltip title={title}>

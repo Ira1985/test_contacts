@@ -16,7 +16,6 @@ import {
 } from "../../../constants/nationalities";
 
 export const ContantTable = ({ data }) => {
-  // return <div>{data[0].name.first}</div>;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
