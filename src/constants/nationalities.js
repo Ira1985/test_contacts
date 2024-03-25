@@ -16,7 +16,7 @@ export const nationalities = {
   NL: "Dutch",
   NO: "Norwegian",
   NZ: "New Zealander",
-  RS: "Russian",
+  RS: "Serbian",
   TR: "Turkish",
   UA: "Ukrainian",
   US: "American",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
@@ -32,16 +32,16 @@ export const CopyToClipboardText = ({ text }) => {
   const classes = useStyle();
   const [title, setTitle] = useState(STATUS_COPY.COPY);
   const [, copyToClipboard] = useCopyToClipboard();
+  console.log("CopyToClipboardText render");
+  const onClickAway = () => setTitle(STATUS_COPY.COPY);
+  const onClickCopy = () => {
+    copyToClipboard(text);
+    setTitle(STATUS_COPY.COPIED);
+  };
   return (
-    <ClickAwayListener onClickAway={() => setTitle(STATUS_COPY.COPY)}>
+    <ClickAwayListener onClickAway={onClickAway}>
       <Tooltip title={title}>
-        <Box
-          className={classes.root}
-          onClick={() => {
-            copyToClipboard(text);
-            setTitle(STATUS_COPY.COPIED);
-          }}
-        >
+        <Box className={classes.root} onClick={onClickCopy}>
           <FileCopyOutlinedIcon fontSize="small" className={classes.icon} />
           <Typography>{text}</Typography>
         </Box>

@@ -4,11 +4,13 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import { DATA_VIEW_MODES } from "../../constants/views";
+import { useCallback } from "react";
 
 export const ToggleViewMode = ({ dataViewMode, setDataViewMode }) => {
   const handleChange = (event, nextView) => {
     setDataViewMode(nextView);
   };
+  console.log("ToggleViewMode render");
   return (
     <ToggleButtonGroup
       value={dataViewMode}

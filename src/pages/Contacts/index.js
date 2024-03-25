@@ -5,11 +5,13 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import { ContactFilter } from "./ContactsFilter";
 import { ContantTable } from "./ContactTable";
 import { ToggleViewMode } from "../../components/ToggleViewMode";
 import { makeStyles } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import { DATA_VIEW_MODES } from "../../constants/views";
+import { useState } from "react";
 
 const theme = createTheme();
 
@@ -17,23 +19,29 @@ const useStyle = makeStyles({
   container: {
     width: "100vw",
   },
-  root: {
-    padding: theme.spacing(2),
-    width: "calc(100% - 20px)",
-    backgroundColor: theme.palette.primary.light,
-  },
+  root: {},
   header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: theme.spacing(2),
   },
+  filters: {
+    display: "flex",
+    paddingBottom: theme.spacing(2),
+  },
 });
 
 export const Contacts = () => {
+  const filter = {
+    fullName: "",
+    gender: "",
+    nationality: [],
+  };
   const classes = useStyle();
-  const { contacts, isLoading, isError } = useContacts();
   const [dataViewMode, setDataViewMode] = useViewMode();
+  const [dataFilter, setDataFilter] = useState(filter);
+  const { contacts, isLoading, isError } = useContacts(dataFilter);
 
   const createView = () => {
     if (isLoading) {
@@ -51,6 +59,7 @@ export const Contacts = () => {
         return null;
     }
   };
+  console.log("Contacts render");
 
   return (
     <Container className={classes.container}>
@@ -63,6 +72,13 @@ export const Contacts = () => {
             dataViewMode={dataViewMode}
             setDataViewMode={setDataViewMode}
           />
+        </Grid>
+        <Grid item xs={12} className={classes.filters}>
+          <ContactFilter
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+          />
+          <button onClick={() => console.log(dataFilter)}>Click</button>
         </Grid>
         <Grid item xs={12}>
           {createView()}

@@ -1,3 +1,4 @@
+import { memo, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,7 +16,8 @@ import {
   nationalities_color,
 } from "../../../constants/nationalities";
 
-export const ContantTable = ({ data }) => {
+export const ContantTable = memo(({ data }) => {
+  console.log("ContantTable render");
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -71,4 +73,4 @@ export const ContantTable = ({ data }) => {
       </Table>
     </TableContainer>
   );
-};
+});
